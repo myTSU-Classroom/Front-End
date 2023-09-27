@@ -1,0 +1,69 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: #f2f2f2;
+  padding: 0 4rem;
+}
+
+@media screen and (min-width: 640px) {
+  body {
+    padding: 0 7.5rem;
+  }
+}
+
+@media screen and (min-width: 1536px) {
+  body {
+    padding: 0 10rem;
+  }
+}
+
+.selected {
+  color: #2d85c5;
+}
+
+label {
+  font-weight: bold;
+}
+
+.onboard-input {
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #d7d7d7;
+  background-color: inherit;
+  color: black;
+  width: 100%;
+  margin-top: 0.5em;
+}
+
+.login-btn {
+  background-color: #2d85c5 !important;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+}
+
+.login-btn:hover {
+  background-color: #2a7db9 !important;
+}
+
+.bck-btn {
+  margin-top: 0.7em;
+  font-weight: 600;
+  text-align: center;
+  color: #9f9f9f;
+}
+
+.bck-btn:hover {
+  color: #2d85c5;
+  cursor: pointer;
+}
+
+.selected-role {
+  color: black !important;
+}
+
+#btnNext:hover,
+#btnPrev:hover {
+  cursor: pointer;
+}
