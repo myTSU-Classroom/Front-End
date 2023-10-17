@@ -1,17 +1,25 @@
-body {
+main {
   font-family: "Montserrat", sans-serif;
   background-color: #f2f2f2;
   padding: 0 4rem;
+  min-height: 100vh;
+}
+
+header {
+  font-family: "Montserrat", sans-serif;
+  background-color: #f2f2f2;
 }
 
 @media screen and (min-width: 640px) {
-  body {
+  main,
+  header {
     padding: 0 7.5rem;
   }
 }
 
 @media screen and (min-width: 1536px) {
-  body {
+  main,
+  header {
     padding: 0 10rem;
   }
 }
@@ -66,4 +74,82 @@ label {
 #btnNext:hover,
 #btnPrev:hover {
   cursor: pointer;
+}
+
+.img-container:hover {
+  cursor: pointer;
+}
+
+#requestBody > tr > td,
+#requestTable > thead > tr > th {
+  padding: 10px;
+}
+
+#requestBody > tr {
+  border-bottom: 0.5px solid rgb(207, 206, 206);
+}
+
+.btn-deny-yes,
+.btn-acc-no {
+  background-color: red !important;
+  color: white !important;
+}
+
+.btn-deny-no,
+.btn-acc-yes {
+  background-color: rgb(44, 177, 218) !important;
+  color: white !important;
+}
+
+.table-avatar {
+  max-width: 48px;
+  max-height: 48px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+  color: grey !important;
+}
+
+.fac-active {
+  color: #2d85c5 !important;
+}
+
+.fac-manage:hover {
+  color: #2d85c5 !important;
+  cursor: pointer;
+}
+
+.btn-edit-yes {
+  background-color: #007d00 !important;
+  color: white !important;
+}
+
+.btn-edit-no:hover {
+  background-color: #df3232 !important;
+  color: white !important;
+}
+
+#profileModal {
+  background-color: white;
+  border-radius: 5px;
+
+  left: -5em;
+  font-size: 16px;
+  box-shadow: 4px 4px 4px #9f9f9f;
+}
+
+.profile-link {
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.profile-link:hover {
+  background-color: #2d85c5;
+  color: white !important;
 }

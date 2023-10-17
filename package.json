@@ -1,0 +1,22 @@
+{
+  "name": "front-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myTSU-Classroom/Front-End.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/myTSU-Classroom/Front-End/issues"
+  },
+  "homepage": "https://github.com/myTSU-Classroom/Front-End#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  }
+}
