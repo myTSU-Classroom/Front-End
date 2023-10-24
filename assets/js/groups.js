@@ -32,8 +32,8 @@ group_data.forEach((group) => {
 
   let imgEdit = document.createElement("img");
   let imgDelete = document.createElement("img");
-  imgEdit.src = "./assets/icon/bx_edit.png";
-  imgDelete.src = "./assets/icon/delete.png";
+  imgEdit.src = "../../assets/icon/bx_edit.svg";
+  imgDelete.src = "../../assets/icon/delete.svg";
 
   let modalEditBtn = document.createElement("button");
   modalEditBtn.setAttribute("data-toggle", "modal");

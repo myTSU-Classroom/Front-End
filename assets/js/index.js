@@ -13,15 +13,15 @@ avatarImg.addEventListener("change", function () {
 let studentLabel = document.getElementById("studentLabel");
 
 let studentImgPath = [
-  "./assets/img/student-colored.png",
-  "./assets/img/student.png",
+  "../../assets/img/student-colored.svg",
+  "../../assets/img/student.svg",
 ];
 
 let teacherLabel = document.getElementById("teacherLabel");
 
 let teacherImgPath = [
-  "./assets/img/teacher-colored.png",
-  "./assets/img/teacher.png",
+  "../../assets/img/teacher-colored.svg",
+  "../../assets/img/teacher.svg",
 ];
 
 let isStudentSelected = false;

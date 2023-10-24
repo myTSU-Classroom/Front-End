@@ -5,7 +5,7 @@ data = [
     birth_date: "30/1/2000",
     email: "rafihayla123@gmail.com",
     phone: "+79131234567",
-    avatar: "./assets/img/profile.png",
+    avatar: "../../assets/img/profile.svg",
     type: "Teacher",
     faculty: "Higher IT School (HITS)",
     direction: "Software Engineering",
@@ -18,7 +18,7 @@ data = [
     birth_date: "30/1/2000",
     email: "rafihayla123@gmail.com",
     phone: "+79131234567",
-    avatar: "./assets/img/profile.png",
+    avatar: "../../assets/img/profile.svg",
     type: "Teacher",
     faculty: "Higher IT School (HITS)",
     direction: "Software Engineering",
@@ -31,7 +31,7 @@ data = [
     birth_date: "30/1/2000",
     email: "rafihayla123@gmail.com",
     phone: "+79131234567",
-    avatar: "./assets/img/profile.png",
+    avatar: "../../assets/img/profile.svg",
     type: "Teacher",
     faculty: "Higher IT School (HITS)",
     direction: "Software Engineering",
@@ -80,8 +80,8 @@ data.forEach((acc) => {
 
     let imgAcc = document.createElement("img");
     let imgRej = document.createElement("img");
-    imgAcc.src = "./assets/icon/accept.png";
-    imgRej.src = "./assets/icon/reject.png";
+    imgAcc.src = "../../assets/icon/accept.svg";
+    imgRej.src = "../../assets/icon/reject.svg";
 
     let modalAccBtn = document.createElement("button");
     modalAccBtn.setAttribute("data-toggle", "modal");
