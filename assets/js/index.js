@@ -169,7 +169,40 @@ let studentDetailsFormat = ["grade", "faculty", "discipline"];
 
 function registFormSubmit(event) {
   event.preventDefault();
-  //get the data
+  
   let formData = new FormData(document.getElementById("registerForm"));
-  window.location.href = "./register_land.html";
+  
+  let data = {
+    name: formData.get("name"),
+    birth_date: parseInt(formData.get("birth_date")),
+    email: formData.get("email"),
+    phone: formData.get("phone"),
+    role: formData.get("role"),
+    faculty: formData.get("faculty"),
+    direction: formData.get("direction"),
+    group: formData.get("group"),
+    grade: parseInt(formData.get("grade")),
+    isAdmin: false,
+  };
+
+  fetch('https://mytsuclassroom.my.id/api/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: formData
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Response data:', data);
+    window.location.href = "./register_land.html";
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 }
