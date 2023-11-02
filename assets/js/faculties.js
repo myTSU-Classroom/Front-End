@@ -1,85 +1,82 @@
-data = [
-  {
-    id: 1,
-    name: "Faculty 1",
-    direction: [
-      "Education Direction 1",
-      "Education Direction 2",
-      "Education Direction 3",
-    ],
-  },
-  {
-    id: 2,
-    name: "Faculty 2",
-    direction: ["Education Direction 1", "Education Direction 2"],
-  },
-  {
-    id: 3,
-    name: "Faculty 3",
-    direction: ["Education Direction 1"],
-  },
-];
-
 let facultyTable = document.getElementById("facultyBody");
 let facultyMain = document.getElementById("facultyMain");
 let index = 1;
-data.forEach((fac) => {
-  let newRow = document.createElement("tr");
-  newRow.id = fac["id"];
 
-  let noCol = document.createElement("td");
-  noCol.textContent = index;
-
-  let facCol = document.createElement("td");
-  facCol.textContent = fac["name"];
-
-  let directionString = "";
-  fac["direction"].forEach((dir, i) => {
-    directionString += dir;
-    if (i != fac["direction"].length - 1) {
-      directionString += ", ";
+fetch('https://mytsuclassroom.my.id/api/faculty/')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
-  });
+    return response.json();
+  })
+  .then(apiData => {
+    apiData.forEach((fac) => {
+      let newRow = document.createElement("tr");
+      newRow.id = fac["_id"]; // Assuming _id is the unique identifier
+    
+      let noCol = document.createElement("td");
+      noCol.textContent = index;
+    
+      let facCol = document.createElement("td");
+      facCol.textContent = fac["faculty"];
 
-  let dirCol = document.createElement("td");
-  dirCol.textContent = directionString;
+      let dirCol = document.createElement("td"); // To hold direction data
+      fetch(`https://mytsuclassroom.my.id/api/faculty/${fac["_id"]}`)
+      .then(directionResponse => {
+        if (!directionResponse.ok) {
+          throw new Error('Network response for direction was not ok');
+        }
+        return directionResponse.json();
+      })
+      .then(directionData => {
+        console.log('Direction Data:', directionData); // Log directionData to the console
 
-  let actionCol = document.createElement("td");
-  let actionDiv = document.createElement("div");
-  actionDiv.classList.add("flex", "gap-[6px]");
+        if (Array.isArray(directionData)) {
+          let directionString = directionData.map(item => item.direction).join(', ');
 
-  let imgEdit = document.createElement("img");
-  let imgDelete = document.createElement("img");
-  imgEdit.src = "../../assets/icon/bx_edit.svg";
-  imgDelete.src = "../../assets/icon/delete.svg";
+          dirCol.textContent = directionString; // Update the direction column
+        } else {
+          console.error('Invalid direction data format:', directionData);
+        }
+      })
+      .catch(error => console.error('Error fetching direction data:', error));
 
-  let modalEditBtn = document.createElement("button");
-  modalEditBtn.setAttribute("data-toggle", "modal");
-  let id_edit = "#edit_" + fac["id"];
-  modalEditBtn.setAttribute("data-target", id_edit);
+      let actionCol = document.createElement("td");
+      let actionDiv = document.createElement("div");
+      actionDiv.classList.add("flex", "gap-[6px]");
 
-  let modalDeleteBtn = document.createElement("button");
-  modalDeleteBtn.setAttribute("data-toggle", "modal");
-  let id_delete = "#delete_" + fac["id"];
-  modalDeleteBtn.setAttribute("data-target", id_delete);
+      let imgEdit = document.createElement("img");
+      let imgDelete = document.createElement("img");
+      imgEdit.src = "../../assets/icon/bx_edit.svg";
+      imgDelete.src = "../../assets/icon/delete.svg";
 
-  modalEditBtn.appendChild(imgEdit);
-  modalDeleteBtn.appendChild(imgDelete);
+      let modalEditBtn = document.createElement("button");
+      modalEditBtn.setAttribute("data-toggle", "modal");
+      let id_edit = "#edit_" + fac["_id"];
+      modalEditBtn.setAttribute("data-target", id_edit);
 
-  actionDiv.appendChild(modalEditBtn);
-  actionDiv.appendChild(modalDeleteBtn);
-  actionCol.appendChild(actionDiv);
+      let modalDeleteBtn = document.createElement("button");
+      modalDeleteBtn.setAttribute("data-toggle", "modal");
+      let id_delete = "#delete_" + fac["_id"];
+      modalDeleteBtn.setAttribute("data-target", id_delete);
 
-  newRow.appendChild(noCol);
-  newRow.appendChild(facCol);
-  newRow.appendChild(dirCol);
-  newRow.appendChild(actionCol);
-  facultyTable.appendChild(newRow);
-  index += 1;
+      modalEditBtn.appendChild(imgEdit);
+      modalDeleteBtn.appendChild(imgDelete);
 
-  let modalEdit = document.createElement("div");
+      actionDiv.appendChild(modalEditBtn);
+      actionDiv.appendChild(modalDeleteBtn);
+      actionCol.appendChild(actionDiv);
+
+      newRow.appendChild(noCol);
+      newRow.appendChild(facCol);
+      newRow.appendChild(dirCol);
+      newRow.appendChild(actionCol);
+      facultyTable.appendChild(newRow);
+      index += 1; 
+
+      let modalEdit = document.createElement("div");
   modalEdit.innerHTML = `
-    <div class="modal fade" id="edit_${fac["id"]}"" tabindex="-1" role="dialog" aria-labelledby="Label_deny_${fac["id"]}" aria-hidden="true">
+    <div class="modal fade" id="edit_${fac["_id"]}"" tabindex="-1" role="dialog" aria-labelledby="Label_deny_${fac["_id"]}" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-body">
@@ -94,7 +91,7 @@ data.forEach((fac) => {
                     <form> 
                         <div class=" mb-3">
                             <label class="font-bold">Faculty</label> <br/>
-                            <input class="w-100 border rounded p-2 border-[#2D85C5]" type="text" placeholder="${fac["name"]}" />
+                            <input class="w-100 border rounded p-2 border-[#2D85C5]" type="text" placeholder="${fac["faculty"]}" />
                         </div>
                         <div class=" mb-3">
                             <label class="font-bold ">Education Direction</label> <br/>
@@ -120,7 +117,7 @@ data.forEach((fac) => {
 
   let modalDelete = document.createElement("div");
   modalDelete.innerHTML = `
-     <div class="modal fade" id="delete_${fac["id"]}"" tabindex="-1" role="dialog" aria-labelledby="Label_delete_${fac["id"]}" aria-hidden="true">
+     <div class="modal fade" id="delete_${fac["_id"]}"" tabindex="-1" role="dialog" aria-labelledby="Label_delete_${fac["_id"]}" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
              <div class="modal-header">
@@ -143,4 +140,7 @@ data.forEach((fac) => {
   `;
   facultyMain.appendChild(modalDelete);
   facultyMain.appendChild(modalEdit);
-});
+       
+    });
+  })
+  .catch(error => console.error('Error:', error));

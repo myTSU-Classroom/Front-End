@@ -1,66 +1,77 @@
-group_data = [
-  {
-    id: 1,
-    name: "972005",
-  },
-  {
-    id: 2,
-    name: "972006",
-  },
-  {
-    id: 3,
-    name: "972007",
-  },
-];
+// Function to fetch faculties
+async function fetchFaculties() {
+  const response = await fetch('https://mytsuclassroom.my.id/api/faculty/');
+  const facultiesData = await response.json();
+  return facultiesData;
+}
 
-let groupTable = document.getElementById("groupBody");
-let groupMain = document.getElementById("groupMain");
-let i = 1;
-group_data.forEach((group) => {
-  let newRow = document.createElement("tr");
-  newRow.id = group["id"];
+// Function to fetch groups for a specific faculty
+async function fetchGroups(facultyId) {
+  const response = await fetch(`https://mytsuclassroom.my.id/api/faculty/${facultyId}`);
+  const groupsData = await response.json();
+  return groupsData;
+}
 
-  let noCol = document.createElement("td");
-  noCol.textContent = i;
+// Function to populate the table
+async function populateTable() {
+  let groupTable = document.getElementById("groupBody");
+  let groupMain = document.getElementById("groupMain");
+  let i = 1;
 
-  let groupCol = document.createElement("td");
-  groupCol.textContent = group["name"];
+  // Fetch faculties
+  const faculties = await fetchFaculties();
 
-  let actionCol = document.createElement("td");
-  let actionDiv = document.createElement("div");
-  actionDiv.classList.add("flex", "gap-[6px]");
+  for (const faculty of faculties) {
+    const facultyId = faculty._id;
+    const groupsData = await fetchGroups(facultyId);
 
-  let imgEdit = document.createElement("img");
-  let imgDelete = document.createElement("img");
-  imgEdit.src = "../../assets/icon/bx_edit.svg";
-  imgDelete.src = "../../assets/icon/delete.svg";
+    for (const direction of groupsData) {
+      for (const group of direction.group) {
+        let newRow = document.createElement("tr");
+        newRow.id = group._id;
 
-  let modalEditBtn = document.createElement("button");
-  modalEditBtn.setAttribute("data-toggle", "modal");
-  let id_edit = "#edit_group_" + group["id"];
-  modalEditBtn.setAttribute("data-target", id_edit);
+        let noCol = document.createElement("td");
+        noCol.textContent = i;
 
-  let modalDeleteBtn = document.createElement("button");
-  modalDeleteBtn.setAttribute("data-toggle", "modal");
-  let id_delete = "#delete_group_" + group["id"];
-  modalDeleteBtn.setAttribute("data-target", id_delete);
+        let groupCol = document.createElement("td");
+        groupCol.textContent = group.groupCode;
 
-  modalEditBtn.appendChild(imgEdit);
-  modalDeleteBtn.appendChild(imgDelete);
+        let actionCol = document.createElement("td");
+        let actionDiv = document.createElement("div");
+        actionDiv.classList.add("flex", "gap-[6px]");
 
-  actionDiv.appendChild(modalEditBtn);
-  actionDiv.appendChild(modalDeleteBtn);
-  actionCol.appendChild(actionDiv);
+        let imgEdit = document.createElement("img");
+        let imgDelete = document.createElement("img");
+        imgEdit.src = "../../assets/icon/bx_edit.svg";
+        imgDelete.src = "../../assets/icon/delete.svg";
 
-  newRow.appendChild(noCol);
-  newRow.appendChild(groupCol);
-  newRow.appendChild(actionCol);
-  groupTable.appendChild(newRow);
-  i += 1;
+        let modalEditBtn = document.createElement("button");
+        modalEditBtn.setAttribute("data-toggle", "modal");
+        let id_edit = "#edit_group_" + group._id;
+        modalEditBtn.setAttribute("data-target", id_edit);
 
-  let modalEdit = document.createElement("div");
+        let modalDeleteBtn = document.createElement("button");
+        modalDeleteBtn.setAttribute("data-toggle", "modal");
+        let id_delete = "#delete_group_" + group._id;
+        modalDeleteBtn.setAttribute("data-target", id_delete);
+
+        modalEditBtn.appendChild(imgEdit);
+        modalDeleteBtn.appendChild(imgDelete);
+
+        actionDiv.appendChild(modalEditBtn);
+        actionDiv.appendChild(modalDeleteBtn);
+        actionCol.appendChild(actionDiv);
+
+        newRow.appendChild(noCol);
+        newRow.appendChild(groupCol);
+        newRow.appendChild(actionCol);
+        groupTable.appendChild(newRow);
+
+        i += 1;
+
+        let modalEdit = document.createElement("div");
   modalEdit.innerHTML = `
-    <div class="modal fade" id="edit_group_${group["id"]}"" tabindex="-1" role="dialog" aria-labelledby="Label_deny_${group["id"]}" aria-hidden="true">
+    <div class="modal fade" id="edit_group_${group["_id"]}"" tabindex="-1" role="dialog" aria-labelledby="Label_deny_${group["_id"]}" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-body">
@@ -96,7 +107,7 @@ group_data.forEach((group) => {
 
   let modalDelete = document.createElement("div");
   modalDelete.innerHTML = `
-     <div class="modal fade" id="delete_group_${group["id"]}"" tabindex="-1" role="dialog" aria-labelledby="Label_delete_${group["id"]}" aria-hidden="true">
+     <div class="modal fade" id="delete_group_${group["_id"]}"" tabindex="-1" role="dialog" aria-labelledby="Label_delete_${group["_id"]}" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
              <div class="modal-header">
@@ -119,4 +130,10 @@ group_data.forEach((group) => {
   `;
   groupMain.appendChild(modalDelete);
   groupMain.appendChild(modalEdit);
-});
+      }
+    }
+  }
+}
+
+// Call the function to populate the table
+populateTable();

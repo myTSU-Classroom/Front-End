@@ -166,3 +166,25 @@ let listFormFormat = [
 ];
 
 let studentDetailsFormat = ["grade", "faculty", "discipline"];
+
+function registFormSubmit(event) {
+  event.preventDefault();
+  
+  // Get the form data
+  let formData = new FormData(document.getElementById("registerForm"));
+  
+  // Convert the FormData object to a plain object
+  let data = {};
+  formData.forEach((value, key) => {
+    data[key] = value;
+  });
+
+  // Assuming data contains the form fields, you can do something with it here.
+  console.log(data);
+
+  // Redirect to another page
+  window.location.href = "./register_land.html";
+}
+
+// Add an event listener to the form
+document.getElementById('registerForm').addEventListener('submit', registFormSubmit);
