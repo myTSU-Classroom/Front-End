@@ -1,8 +1,11 @@
+const bearerToken = process.env.BEARER_TOKEN;
+
+//Get Faculty
 let facultyTable = document.getElementById("facultyBody");
 let facultyMain = document.getElementById("facultyMain");
 let index = 1;
 
-fetch('https://mytsuclassroom.my.id/api/faculty/')
+fetch('http://localhost:8080/api/faculty/')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -21,7 +24,7 @@ fetch('https://mytsuclassroom.my.id/api/faculty/')
       facCol.textContent = fac["faculty"];
 
       let dirCol = document.createElement("td"); // To hold direction data
-      fetch(`https://mytsuclassroom.my.id/api/faculty/${fac["_id"]}`)
+      fetch(`http://localhost:8080/api/faculty/${fac["_id"]}`)
       .then(directionResponse => {
         if (!directionResponse.ok) {
           throw new Error('Network response for direction was not ok');
@@ -91,11 +94,7 @@ fetch('https://mytsuclassroom.my.id/api/faculty/')
                     <form> 
                         <div class=" mb-3">
                             <label class="font-bold">Faculty</label> <br/>
-                            <input class="w-100 border rounded p-2 border-[#2D85C5]" type="text" placeholder="${fac["faculty"]}" />
-                        </div>
-                        <div class=" mb-3">
-                            <label class="font-bold ">Education Direction</label> <br/>
-                            <input class="w-100 border rounded p-2 border-[#2D85C5]" type="text" placeholder="${fac["direction"]}" />
+                            <input id="facultyInput" class="w-100 border rounded p-2 border-[#2D85C5]" type="text" placeholder="${fac["faculty"]}" />
                         </div>
                         <div>
                         <div class="flex justify-end gap-2 mt-8">
@@ -106,15 +105,49 @@ fetch('https://mytsuclassroom.my.id/api/faculty/')
                     </form>
                 <div>
             </div>
-
-                
             </div>
-            
             </div>
         </div>
     </div>
     `;
 
+  facultyMain.appendChild(modalEdit);
+      // Update Faculty
+          let updateButton = modalEdit.querySelector('.btn-edit-yes');
+          updateButton.addEventListener('click', () => {
+              let facultyId = fac["_id"];
+              let facultyInput = modalEdit.querySelector('#facultyInput');
+              let updatedFacultyName = facultyInput.value;
+
+              fetch(`http://localhost:8080/api/admin/faculty/`, {
+                  method: 'PUT',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${bearerToken}`
+                    },
+                  body: JSON.stringify({
+                      "facultyId": facultyId,
+                      "facultyName": updatedFacultyName
+                  })
+              })
+              .then(response => {
+                  if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                  }
+                  return response.json();
+              })
+              .then(data => {
+                  // Handle successful update here (if needed)
+                  console.log('Faculty updated successfully:', data);
+                  modalEdit.remove(); // Remove the modal from the DOM
+              })
+              .catch(error => {
+                  // Handle errors here
+                  console.error('Error updating faculty:', error);
+              });
+          });
+
+        
   let modalDelete = document.createElement("div");
   modalDelete.innerHTML = `
      <div class="modal fade" id="delete_${fac["_id"]}"" tabindex="-1" role="dialog" aria-labelledby="Label_delete_${fac["_id"]}" aria-hidden="true">
@@ -138,9 +171,73 @@ fetch('https://mytsuclassroom.my.id/api/faculty/')
         </div>
         </div>
   `;
+
   facultyMain.appendChild(modalDelete);
-  facultyMain.appendChild(modalEdit);
-       
+      //Delete Faculty
+      let deleteButton = modalDelete.querySelector('.btn-deny-yes');
+      deleteButton.addEventListener('click', () => {
+          let facultyId = fac["_id"];
+
+          fetch(`http://localhost:8080/api/admin/faculty`, {
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${bearerToken}`
+                },
+              body: JSON.stringify({
+                  "facultyId": facultyId
+              })
+          })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Network response was not ok');
+              }
+              return response.json();
+          })
+          .then(data => {
+              // Handle successful deletion here (if needed)
+              console.log('Data deleted successfully:', data);
+              modalDelete.remove(); // Remove the modal from the DOM
+          })
+          .catch(error => {
+              // Handle errors here
+              console.error('Error deleting data:', error);
+          });
+      });
+
     });
   })
   .catch(error => console.error('Error:', error));
+
+//Create faculty
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('facultyForm');
+
+  form.addEventListener('submit', function (event) {
+       event.preventDefault();
+
+      const facultyName = document.getElementById('facultyName').value;
+
+      const data = {
+          facultyName: facultyName
+      };
+
+      fetch('http://localhost:8080/api/admin/faculty', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${bearerToken}`
+            },
+          body: JSON.stringify(data),
+      })
+          .then(response => response.json())
+          .then(data => {
+              console.log('Success:', data);
+              // Optionally, you can close the modal after a successful request
+              $('#modalAddFaculty').modal('hide');
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+    });
+});

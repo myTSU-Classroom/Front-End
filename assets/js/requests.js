@@ -1,5 +1,5 @@
 // Make a request to the API endpoint
-fetch('https://mytsuclassroom.my.id/api/user/')
+fetch('http://localhost:8080/api/user')
   .then(response => response.json())
   .then(data => {
     let tableBody = document.getElementById("requestBody");

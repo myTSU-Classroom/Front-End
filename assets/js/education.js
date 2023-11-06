@@ -1,8 +1,10 @@
+const bearerToken = process.env.BEARER_TOKEN;
+
 document.addEventListener('DOMContentLoaded', function() {
   var selectElement = document.querySelector('#facultySelect select');
 
   // Make a GET request to your API endpoint
-  fetch('https://mytsuclassroom.my.id/api/faculty/')
+  fetch('http://localhost:8080/api/faculty/')
       .then(response => response.json())
       .then(data => {
           // Iterate through the data and create option elements
@@ -21,15 +23,16 @@ document.addEventListener('DOMContentLoaded', function() {
   var selectElement = document.querySelector('#facultySelect select');
   var educationTable = document.getElementById("educationBody");
   var eduMain = document.getElementById("eduMain");
+  var selectedFacultyId; // Declare selectedFacultyId variable
 
   selectElement.addEventListener('change', function() {
-      var selectedFacultyId = this.value;
+    selectedFacultyId = this.value;
 
       // Clear the table before populating with new data
       educationTable.innerHTML = '';
 
       // Make a GET request to the API endpoint for the selected faculty
-      fetch(`https://mytsuclassroom.my.id/api/faculty/${selectedFacultyId}`)
+      fetch(`http://localhost:8080/api/faculty/${selectedFacultyId}`)
           .then(response => response.json())
           .then(data => {
               let edu = data; // Assuming data is the API response
@@ -81,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   newRow.appendChild(groupCol);
                   newRow.appendChild(actionCol);
                   educationTable.appendChild(newRow);
-                  i += 1;
+                  i += 1;    
 
                   let modalEdit = document.createElement("div");
                   modalEdit.innerHTML = `
@@ -100,11 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <form> 
                                         <div class=" mb-3">
                                             <label class="font-bold">Education Direction</label> <br/>
-                                            <input class="w-100 border rounded p-2 border-[#2D85C5]" type="text" placeholder="${edu["direction"]}" />
-                                        </div>
-                                        <div class=" mb-3">
-                                            <label class="font-bold ">Groups</label> <br/>
-                                            <input class="w-100 border rounded p-2 border-[#2D85C5]" type="text" placeholder="${edu["group"]}" />
+                                            <input class="w-100 border rounded p-2 border-[#2D85C5]" type="text" id="directionInput" placeholder="${edu["direction"]}" />
                                         </div>
                                         <div>
                                         <div class="flex justify-end gap-2 mt-8">
@@ -123,6 +122,43 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </div>
                     `;
+                    eduMain.appendChild(modalEdit);
+                    // Update Direction
+                    let updateButton = modalEdit.querySelector('.btn-edit-yes');
+                    updateButton.addEventListener('click', () => {
+                        let directionId = edu["_id"];
+                        let directionInput = modalEdit.querySelector('#directionInput');
+                        let updateddirectionName = directionInput.value;
+
+                        fetch(`http://localhost:8080/api/admin/direction/`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${bearerToken}`
+                            },
+                            body: JSON.stringify({
+                                "directionId": directionId,
+                                "directionName": updateddirectionName,
+                                "facultyId": selectedFacultyId, 
+                            })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Handle successful update here (if needed)
+                            console.log('Faculty updated successfully:', data);
+                            modalEdit.remove(); // Remove the modal from the DOM
+                        })
+                        .catch(error => {
+                            // Handle errors here
+                            console.error('Error updating Direction:', error);
+                        });
+                    });
+
                 
                   let modalDelete = document.createElement("div");
                   modalDelete.innerHTML = `
@@ -148,9 +184,71 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                   `;
                   eduMain.appendChild(modalDelete);
-                  eduMain.appendChild(modalEdit);
+                  // Delete Directions
+                    let deleteButton = modalDelete.querySelector('.btn-deny-yes');
+                    deleteButton.addEventListener('click', () => {
+                        let directionId = edu["_id"];
+
+
+                        fetch(`http://localhost:8080/api/admin/direction`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${bearerToken}`
+                            },
+                            body: JSON.stringify({
+                                "directionId": directionId 
+                            })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Handle successful deletion here (if needed)
+                            console.log('Data deleted successfully:', data);
+                            modalDelete.remove(); // Remove the modal from the DOM
+                        })
+                        .catch(error => {
+                            // Handle errors here
+                            console.error('Error deleting data:', error);
+                        });
+                    });
               });
           })
           .catch(error => console.error('Error fetching data:', error));
   });
+
+    // Create Directions
+    document.getElementById('eduForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        var directionName = document.getElementById('directionName').value;
+
+        fetch('http://localhost:8080/api/admin/direction', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${bearerToken}`
+            },
+            body: JSON.stringify({ 
+                facultyId: selectedFacultyId, 
+                directionName: directionName 
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response from the server
+            console.log('Direction created:', data);
+            // Close the modal (if needed)
+            $('#modalAddEdu').modal('hide');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+    
 });
+

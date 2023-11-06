@@ -5,7 +5,7 @@ function getFaculties() {
   const selectElement = document.getElementById('facForm');
 
   // Fetch the list of faculties
-  fetch('https://mytsuclassroom.my.id/api/faculty')
+  fetch('http://localhost:8080/api/faculty')
       .then(response => response.json())
       .then(data => {
           data.forEach(faculty => {
@@ -28,7 +28,7 @@ function getEducationDirections() {
     "<option disabled selected>Education Direction</option>";
 
   if (facultyId) {
-    fetch(`https://mytsuclassroom.my.id/api/faculty/${facultyId}`)
+    fetch(`http://localhost:8080/api//faculty/${facultyId}`)
       .then((response) => response.json())
       .then((data) => {
         groupData = data;
