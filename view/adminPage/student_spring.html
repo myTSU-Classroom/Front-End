@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
+    <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                fontFamily: {
+                    sans: ["Roboto", "sans-serif"],
+                    body: ["Roboto", "sans-serif"],
+                    mono: ["ui-monospace", "monospace"],
+                },
+            },
+            corePlugins: {
+                preflight: false,
+            },
+        };
+    </script>
+
+</head>
+
+<body>
+    <header class="border-b-4 border-[#2D85C5]">
+        <nav class="flex justify-between py-8">
+            <div>
+                <div class="flex items-center py-8 pt-[3px] pb-[3px] gap-[7px] justify-center">
+                    <img src="./assets/icon/wpf_books.png" width="28px" />
+                    <h1 class="font-black sm:text-[24px] lg:text-[24px]">
+                        MyTSU Classroom
+                    </h1>
+                </div>
+            </div>
+            <div>
+                <div class="flex items-center text-[18px] font-bold gap-[30px]">
+                    <a href="./admin.html">Home</a>
+                    <div class="relative">
+                        <button onclick="showProfile()">
+                            <img src="./assets/img/profile.png" width="48px" />
+                        </button>
+                        <div id="profileModal" class="absolute profile-modal" hidden>
+                            <a href="./profile.html" class="flex gap-[6px] items-center mb-2 profile-link">
+                                <img src="./assets/icon/icon_profile.png" style="width: 16px; height: 16px" />
+                                <span>Profile</span>
+                            </a>
+                            <a href="./login.html" class="flex gap-[6px] items-center profile-link">
+                                <img src="./assets/icon/half-circle.png" style="width: 16px; height: 16px" />
+                                <span>Log out</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main id="studentMain">
+        <div class="py-10 flex items-center justify-between">
+            <div class="flex items-center gap-[18px]">
+                <span onclick="window.location.href='./student.html'" id="autumnButton"
+                    class="text-[24px] font-bold  season-text student-active">Autumn</span>
+                <div style="
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #cad4de;
+            "></div>
+                <span onclick="window.location.href='./student_spring.html'" id="springButton"
+                    class="text-[24px] font-bold  season-text">Spring</span>
+            </div>
+
+
+        </div>
+        <div id="accordionSpring">
+            <div id="accordionExample">
+                <div
+                    class="rounded-t-lg border border-neutral-200 bg-[#EFF7FF] dark:border-neutral-600 dark:bg-neutral-800">
+                    <h2 class="mb-0" id="headingOne">
+                        <button
+                            class="group relative flex w-full font-bold items-center rounded-t-[15px] border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-800 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-neutral-800 dark:[&:not([data-te-collapse-collapsed])]:text-primary-400 dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
+                            type="button" data-te-collapse-init data-te-target="#collapseOne" aria-expanded="true"
+                            aria-controls="collapseOne">
+                            Software Development Process
+                            <span
+                                class="ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </span>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="!visible" data-te-collapse-item data-te-collapse-show
+                        aria-labelledby="headingOne" data-te-parent="#accordionExample">
+                        <div class="px-5 py-4">
+                            <div class="mb-3">
+                                <strong>Description</strong> <br />
+                                <p>Software development process is a process of planning and managing software
+                                    development.</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Readings and Literature</strong> <br />
+                                <a href="" style="text-decoration: underline;">Software Development Process Book.pdf</a>
+                            </div>
+                            <div class="grid grid-cols-3 gap-y-6">
+                                <div>
+                                    <strong>Teacher</strong> <br />
+                                    <p>Rafi Hayla</p>
+                                </div>
+                                <div>
+                                    <strong>Year</strong> <br />
+                                    <p>2020 - 2021</p>
+                                </div>
+                                <div>
+                                    <strong>Grade</strong> <br />
+                                    <p>4</p>
+                                </div>
+                                <div>
+                                    <strong>Schedule</strong> <br />
+                                    <p>Alexey </p>
+                                </div>
+                                <div>
+                                    <strong>Building</strong> <br />
+                                    <p>2</p>
+                                </div>
+                                <div>
+                                    <strong>Room</strong> <br />
+                                    <p>218</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="border border-t-0 border-neutral-200 bg-[#EFF7FF] dark:border-neutral-600 dark:bg-neutral-800">
+                    <h2 class="mb-0" id="headingTwo">
+                        <button
+                            class="group relative flex font-bold w-full items-center rounded-none border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-800 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-neutral-800 dark:[&:not([data-te-collapse-collapsed])]:text-primary-400 dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
+                            type="button" data-te-collapse-init data-te-collapse-collapsed data-te-target="#collapseTwo"
+                            aria-expanded="false" aria-controls="collapseTwo">
+                            Front-end Development
+                            <span
+                                class="-mr-1 ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </span>
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="!visible hidden" data-te-collapse-item aria-labelledby="headingTwo"
+                        data-te-parent="#accordionExample">
+                        <div class="px-5 py-4">
+                            <div class="mb-3">
+                                <strong>Description</strong> <br />
+                                <p>Software development process is a process of planning and managing software
+                                    development.</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Readings and Literature</strong> <br />
+                                <a href="" style="text-decoration: underline;">Software Development Process Book.pdf</a>
+                            </div>
+                            <div class="grid grid-cols-3 gap-y-6">
+                                <div>
+                                    <strong>Teacher</strong> <br />
+                                    <p>Rafi Hayla</p>
+                                </div>
+                                <div>
+                                    <strong>Year</strong> <br />
+                                    <p>2020 - 2021</p>
+                                </div>
+                                <div>
+                                    <strong>Grade</strong> <br />
+                                    <p>4</p>
+                                </div>
+                                <div>
+                                    <strong>Schedule</strong> <br />
+                                    <p>Alexey </p>
+                                </div>
+                                <div>
+                                    <strong>Building</strong> <br />
+                                    <p>2</p>
+                                </div>
+                                <div>
+                                    <strong>Room</strong> <br />
+                                    <p>218</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="rounded-b-lg border border-t-0 border-neutral-200 bg-[#EFF7FF] dark:border-neutral-600 dark:bg-neutral-800">
+                    <h2 class="accordion-header mb-0" id="headingThree">
+                        <button
+                            class="group relative font-bold flex w-full items-center border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-800 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-neutral-800 dark:[&:not([data-te-collapse-collapsed])]:text-primary-400 dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)] [&[data-te-collapse-collapsed]]:rounded-b-[15px] [&[data-te-collapse-collapsed]]:transition-none"
+                            type="button" data-te-collapse-init data-te-collapse-collapsed
+                            data-te-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Back-end Development
+                            <span
+                                class="-mr-1 ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </span>
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="!visible hidden" data-te-collapse-item aria-labelledby="headingThree"
+                        data-te-parent="#accordionExample">
+                        <div class="px-5 py-4">
+                            <div class="mb-3">
+                                <strong>Description</strong> <br />
+                                <p>Software development process is a process of planning and managing software
+                                    development.</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Readings and Literature</strong> <br />
+                                <a href="" style="text-decoration: underline;">Software Development Process Book.pdf</a>
+                            </div>
+                            <div class="grid grid-cols-3 gap-y-6">
+                                <div>
+                                    <strong>Teacher</strong> <br />
+                                    <p>Rafi Hayla</p>
+                                </div>
+                                <div>
+                                    <strong>Year</strong> <br />
+                                    <p>2020 - 2021</p>
+                                </div>
+                                <div>
+                                    <strong>Grade</strong> <br />
+                                    <p>4</p>
+                                </div>
+                                <div>
+                                    <strong>Schedule</strong> <br />
+                                    <p>Alexey </p>
+                                </div>
+                                <div>
+                                    <strong>Building</strong> <br />
+                                    <p>2</p>
+                                </div>
+                                <div>
+                                    <strong>Room</strong> <br />
+                                    <p>218</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="rounded-b-lg border border-t-0 border-neutral-200 bg-[#EFF7FF] dark:border-neutral-600 dark:bg-neutral-800">
+                    <h2 class="accordion-header mb-0" id="headingThree">
+                        <button
+                            class="group relative font-bold flex w-full items-center border-0 bg-white px-5 py-4 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none dark:bg-neutral-800 dark:text-white [&:not([data-te-collapse-collapsed])]:bg-white [&:not([data-te-collapse-collapsed])]:text-primary [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(229,231,235)] dark:[&:not([data-te-collapse-collapsed])]:bg-neutral-800 dark:[&:not([data-te-collapse-collapsed])]:text-primary-400 dark:[&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)] [&[data-te-collapse-collapsed]]:rounded-b-[15px] [&[data-te-collapse-collapsed]]:transition-none"
+                            type="button" data-te-collapse-init data-te-collapse-collapsed
+                            data-te-target="#collapseFourth" aria-expanded="false" aria-controls="collapseFourth">
+                            Russian Language
+                            <span
+                                class="-mr-1 ml-auto h-5 w-5 shrink-0 rotate-[-180deg] fill-[#336dec] transition-transform duration-200 ease-in-out group-[[data-te-collapse-collapsed]]:mr-0 group-[[data-te-collapse-collapsed]]:rotate-0 group-[[data-te-collapse-collapsed]]:fill-[#212529] motion-reduce:transition-none dark:fill-blue-300 dark:group-[[data-te-collapse-collapsed]]:fill-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </span>
+                        </button>
+                    </h2>
+                    <div id="collapseFourth" class="!visible hidden" data-te-collapse-item
+                        aria-labelledby="headingFourth" data-te-parent="#accordionExample">
+                        <div class="px-5 py-4">
+                            <div class="mb-3">
+                                <strong>Description</strong> <br />
+                                <p>Software development process is a process of planning and managing software
+                                    development.</p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Readings and Literature</strong> <br />
+                                <a href="" style="text-decoration: underline;">Software Development Process Book.pdf</a>
+                            </div>
+                            <div class="grid grid-cols-3 gap-y-6">
+                                <div>
+                                    <strong>Teacher</strong> <br />
+                                    <p>Rafi Hayla</p>
+                                </div>
+                                <div>
+                                    <strong>Year</strong> <br />
+                                    <p>2020 - 2021</p>
+                                </div>
+                                <div>
+                                    <strong>Grade</strong> <br />
+                                    <p>4</p>
+                                </div>
+                                <div>
+                                    <strong>Schedule</strong> <br />
+                                    <p>Alexey </p>
+                                </div>
+                                <div>
+                                    <strong>Building</strong> <br />
+                                    <p>2</p>
+                                </div>
+                                <div>
+                                    <strong>Room</strong> <br />
+                                    <p>218</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </main>
+</body>
+<script src="assets/js/student.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+
+</html>
