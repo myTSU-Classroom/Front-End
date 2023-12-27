@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header class="border-b-4 border-[#2D85C5]">
+      <nav class="flex justify-between py-8">
+        <div>
+          <div
+            class="flex items-center py-8 pt-[3px] pb-[3px] gap-[7px] justify-center"
+          >
+            <img src="./assets/icon/wpf_books.png" width="28px" />
+            <h1 class="font-black sm:text-[24px] lg:text-[24px]">
+              MyTSU Classroom
+            </h1>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center text-[18px] font-bold gap-[30px]">
+            <a href="./admin.html">Home</a>
+            <a href="./admin.html">Administration</a>
+            <div class="relative">
+              <button onclick="showProfile()">
+                <img src="./assets/img/profile.png" width="48px" />
+              </button>
+              <div id="profileModal" class="absolute fade profile-modal" hidden>
+                <a
+                  href="./profile.html"
+                  class="flex gap-[6px] items-center mb-2 profile-link"
+                >
+                  <img
+                    src="./assets/icon/icon_profile.png"
+                    style="width: 16px; height: 16px"
+                  />
+                  <span>Profile</span>
+                </a>
+                <a
+                  href="./login.html"
+                  class="flex gap-[6px] items-center profile-link"
+                >
+                  <img
+                    src="./assets/icon/half-circle.png"
+                    style="width: 16px; height: 16px"
+                  />
+                  <span>Log out</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="pt-[5em] lg:flex">
+        <div class="">
+          <span
+            class="lg:text-center text-[24px] pb-[20px] font-bold border-b-4 border-[#2D85C5]"
+          >
+            Profile
+          </span>
+          <div class="mt-[5em] relative">
+            <img
+              class="object-cover rounded-full w-[219px] h-[219px]"
+              style="margin: auto"
+              src="./assets/img/onboard.png"
+            />
+            <div class="absolute bottom-6 left-[22%]">
+              <label class="labelImage" for="changeImage">
+                <div class="text-center text-[white]">
+                  <p>Change Avatar</p>
+                </div>
+              </label>
+              <input
+                id="changeImage"
+                type="file"
+                style="display: none"
+                accept="image/*"
+              />
+            </div>
+          </div>
+          <div class="mt-[28px] text-center font-bold">
+            <a href="./change_pass.html">Change Password</a>
+          </div>
+        </div>
+        <div class="w-[45%] ml-[10em]">
+          <span class="text-[24px] font-bold"> Personal Information </span>
+          <form id="userEdit" class="mt-[20px] grid gap-[20px]">
+            <div>
+              <label> Name </label>
+              <br />
+              <input
+                class="onboard-input focus:outline-[#2d85c5]"
+                type="text"
+                placeholder="John Doe"
+                name="name"
+              />
+            </div>
+            <div>
+              <label> Birth of Date </label>
+              <br />
+              <input
+                class="onboard-input focus:outline-[#2d85c5]"
+                type="date"
+                name="birthdate"
+              />
+            </div>
+            <div>
+              <label> Phone Number </label>
+              <br />
+              <input
+                class="onboard-input focus:outline-[#2d85c5]"
+                type="text"
+                required
+                placeholder="081212121212"
+                name="phonenumber"
+              />
+            </div>
+            <div class="flex gap-[30px] font-bold">
+              <button
+                type="submit"
+                class="bg-[#CAD4DE] text-[#fff] rounded py-[10px] px-[8px] save-change"
+              >
+                Save Changes
+              </button>
+              <button class="py-[10px] px-[8px] rounded cancel-change">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="./assets/js/utils.js"></script>
+</html>
